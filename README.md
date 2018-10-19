@@ -1,1 +1,0 @@
-# HVP_anchors_generator
