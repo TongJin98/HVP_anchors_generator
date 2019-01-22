@@ -145,7 +145,7 @@ def parse_j_genes(infile):
 
         splitted_gene_name = gene_name.split('*')
         gene = splitted_gene_name[0]
-        allele = splitted_gene_name[1][1]
+        allele = splitted_gene_name[1][0:2]
 
         # look for only positive indexs
         pos_idx = [i for i in ind if i >=0]
@@ -241,7 +241,7 @@ def parse_v_genes(infile):
 
         splitted_gene_name = gene_name.split('*')
         gene = splitted_gene_name[0]
-        allele = splitted_gene_name[1][1]
+        allele = splitted_gene_name[1][0:2]
 
         #filter out abnormal V genes
         threshold = len(seq_record.seq)/2
