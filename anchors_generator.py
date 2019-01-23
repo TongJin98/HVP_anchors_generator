@@ -31,7 +31,7 @@ def main(args):
     #run with python excelScript.py
     book = xlwt.Workbook()
 
-    for filename in os.listdir(input_dir):
+    for filename in sorted(os.listdir(input_dir), key=lambda x: x.split('.')[0][-1]):
         infile = os.path.join(input_dir, filename)
         filename = filename.split('.')[-2]
         sheet = book.add_sheet(filename)
