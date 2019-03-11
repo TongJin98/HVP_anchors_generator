@@ -127,7 +127,8 @@ def parse_j_genes(infile):
 
 
 def parse_d_genes(infile):
-    '''Find the anchors in a d genes file
+    '''Find the 3'end extra nucleotide, sequence, 5'end extra nucleotide for
+    three different reading frames.
 
     Attributes
     ----------
@@ -144,42 +145,40 @@ def parse_d_genes(infile):
             'five_prime_extra_frame_three' : [],
             'sequence_frame_three' : [],
             'three_prime_extra_frame_three' : [],
-            'gene_names' : [],
+            'accessions' : [],
+            'functionalitys' : [],
+            'partials' : [],
+            'genes' : [],
             'alleles' : []
             }
 
     for seq_record in SeqIO.parse(infile, "fasta"):
-        ind = []
-        extra_indexs = []
+        three_prime_extras = []
+        five_prime_extras = []
         three_amino_acids = []
-        reading_frams = []
-        five_prime_extra_frame_one = []
-        three_prime_extra_frame_one = []
-        five_prime_extra_frame_two = []
-        three_prime_extra_frame_two = []
-        five_prime_extra_frame_three = []
-        three_prime_extra_frame_three = []
 
         # try out 3 different frames
         for i in range(3):
 
-            # split record to match triplets
+            # save 5' extra nucleotides to five_prime_extras
+            five_prime_extra = seq_record.seq[0:i]
+            five_prime_extras.append (five_prime_extra)
+            #split record to match triplets
             seq_record_temp = seq_record.seq[i:]
             floor = math.floor(len(seq_record_temp)/3)
             index = len(seq_record_temp) - (floor*3)
+
             if index != 0:
                 seq_record_temp = seq_record_temp[:-(index)]
+                #save 3' extra nucleotides to three_prime_extra
+                three_prime_extra = seq_record.seq[-(index):]
+                three_prime_extras.append (three_prime_extra)
+            else:
+                three_prime_extras.append ("")
 
-            # translating from dna to amino acid and find first (F/W)X(S/T)
-            translated_seq = seq_record_temp.translate()
-            three_amino_acids.append (translated_seq)
-            position = -1
-            m = re.search('[FW]G.?G[ST]', str(translated_seq))
-            if m:
-                position = m.start()
-            index_F = ((position*3)+i)
-            ind.append(index_F)
-            reading_frams.append(i)
+                # translating from dna to amino acid and find first (F/W)X(S/T)
+                translated_seq = seq_record_temp.translate()
+                three_amino_acids.append (translated_seq)
 
         #get the gene name
         if "|" not in seq_record.description:
@@ -198,43 +197,24 @@ def parse_d_genes(infile):
         gene = splitted_gene_name[0]
         allele = splitted_gene_name[1][0:2]
 
-        # look for only positive indexs
-        pos_idx = [i for i in ind if i >=0]
+        #add data to library
+        data['genes'].append(gene)
+        data['alleles'].append(allele)
+        data['accessions'].append(accession)
+        data['functionalitys'].append(functionality)
+        data['partials'].append(partial)
 
-        if len(pos_idx) != 0:
-            pos_idx = min(pos_idx)
+        data['five_prime_extra_frame_one'].append(five_prime_extras[0])
+        data['sequence_frame_one'].append(three_amino_acids[0])
+        data['three_prime_extra_frame_one'].append(three_prime_extras[0])
 
-            #get the reading frame
-            reading_frame_index = ind.index(pos_idx)
-            reading_frame = reading_frame_index + 1
+        data['five_prime_extra_frame_two'].append(five_prime_extras[1])
+        data['sequence_frame_two'].append(three_amino_acids[1])
+        data['three_prime_extra_frame_two'].append(three_prime_extras[1])
 
-            #get the amino_acids with the correct reading frame
-            amino_acid = three_amino_acids[reading_frame-1]
-
-            # get the amino acids from the beginning to the first F
-            amino_acid_index = int((pos_idx-reading_frame+1)/3)+1
-            amino_acid = amino_acid[0:amino_acid_index]
-
-            pos_idx = str(pos_idx)
-
-            data['indexs'].append(pos_idx)
-            data['results'].append(seq_record.description)
-
-            # get the extras
-            extra = seq_record.seq[0:reading_frame-1]
-            data['extras'].append(extra)
-            data['amino_acids'].append(amino_acid)
-            data['genes'].append(gene)
-            data['alleles'].append(allele)
-            data['gene_names'].append(gene_name)
-            data['accessions'].append(accession)
-            data['functionalitys'].append(functionality)
-            data['partials'].append(partial)
-
-        else:
-            data['error_indexs'].append(str(0))
-            data['error_results'].append(seq_record.description)
-            data['sequence'].append(seq_record.seq)
+        data['five_prime_extra_frame_two'].append(five_prime_extras[2])
+        data['sequence_frame_two'].append(three_amino_acids[2])
+        data['three_prime_extra_frame_two'].append(three_prime_extras[2])
 
     return data
 

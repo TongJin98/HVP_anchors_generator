@@ -44,15 +44,15 @@ def main(args):
         #if 'J-REGION' in [a for a in open(infile)][0]:
         first_line = [a for a in open(infile)][0]
         if re.split(string=first_line, pattern=r"[0-9\-]+\*")[0][-1] == 'J':
-            v_or_j = 'J'
+            v_or_j_or_d = 'J'
         elif re.split(string=first_line, pattern=r"[0-9\-]+\*")[0][-1] == 'V':
-            v_or_j = 'V'
-        #TODO: add parse D genes
+            v_or_j_or_d = 'V'
+        elif re.split(string=first_line, pattern=r"[0-9\-]+\*")[0][-1] == 'D':
+            v_or_j_or_d = 'D'
         else:
             continue
-            #v_or_j = args.t.upper()
 
-        if v_or_j == "V" :
+        if v_or_j_or_d == "V" :
             output_data = parse_genes.parse_v_genes(infile)
             write_files.generate_extra_nucleotides_file_Vgene(output_filename,
                               output_data['gene_names'],
@@ -62,6 +62,9 @@ def main(args):
                               output_data['functionalitys'],
                               output_data['partials'])
             write_files.write_excel_sheet_v(sheet, output_data)
+        elif v_or_j_or_d == "D" :
+            output_data = parse_genes.parse_d_genes(infile)
+            write_files.write_excel_sheet_d(sheet, output_data)
         else:
             output_data = parse_genes.parse_j_genes(infile)
             write_files.generate_extra_nucleotides_file_Jgene(output_filename,
