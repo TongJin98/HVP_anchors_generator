@@ -209,7 +209,7 @@ def write_excel_sheet_d(sheet, output_data):
         sheet: the sheet to write into
     '''
 
-    header = ['gene','allele', '5_prime_extra_frame_1', 'sequence_frame_1',
+    header = ['gene','allele', 'sequence_frame_1',
               '3_prime_extra_frame_1', '5_prime_extra_frame_2',
               'sequence_frame_2', '3_prime_extra_frame_2',
               '5_prime_extra_frame_3', 'sequence_frame_3',
@@ -231,38 +231,35 @@ def write_excel_sheet_d(sheet, output_data):
     for row, allele in enumerate(output_data['alleles']):
         sheet.write(row+1, 1, int(allele), styles[genes[row]])
 
-    for row, five_one in enumerate(output_data['five_prime_extra_frame_one']):
-        sheet.write(row+1, 2, str(five_one), styles[genes[row]])
-
     for row, sequence_one in enumerate(output_data['sequence_frame_one']):
-        sheet.write(row+1, 3, str(sequence_one), styles[genes[row]])
+        sheet.write(row+1, 2, str(sequence_one), styles[genes[row]])
 
     for row, three_one in enumerate(output_data['three_prime_extra_frame_one']):
-        sheet.write(row+1, 4, str(three_one), styles[genes[row]])
+        sheet.write(row+1, 3, str(three_one), styles[genes[row]])
 
     for row, five_two in enumerate(output_data['five_prime_extra_frame_two']):
-        sheet.write(row+1, 5, str(five_two), styles[genes[row]])
+        sheet.write(row+1, 4, str(five_two), styles[genes[row]])
 
     for row, sequence_two in enumerate(output_data['sequence_frame_two']):
-        sheet.write(row+1, 6, str(sequence_two), styles[genes[row]])
+        sheet.write(row+1, 5, str(sequence_two), styles[genes[row]])
 
     for row, three_two in enumerate(output_data['three_prime_extra_frame_two']):
-        sheet.write(row+1, 7, str(three_two), styles[genes[row]])
+        sheet.write(row+1, 6, str(three_two), styles[genes[row]])
 
     for row, five_three in enumerate(output_data['five_prime_extra_frame_three']):
-        sheet.write(row+1, 8, str(five_three), styles[genes[row]])
+        sheet.write(row+1, 7, str(five_three), styles[genes[row]])
 
     for row, sequence_three in enumerate(output_data['sequence_frame_three']):
-        sheet.write(row+1, 9, str(sequence_three), styles[genes[row]])
+        sheet.write(row+1, 8, str(sequence_three), styles[genes[row]])
 
     for row, three_three in enumerate(output_data['three_prime_extra_frame_three']):
-        sheet.write(row+1, 10, str(three_three), styles[genes[row]])
+        sheet.write(row+1, 9, str(three_three), styles[genes[row]])
 
     for row, accession in enumerate(output_data['accessions']):
-        sheet.write(row+1, 11, accession, styles[genes[row]])
+        sheet.write(row+1, 10, accession, styles[genes[row]])
 
     for row, functionality in enumerate(output_data['functionalitys']):
-        sheet.write(row+1, 12, functionality, styles[genes[row]])
+        sheet.write(row+1, 11, functionality, styles[genes[row]])
 
     for row, partial in enumerate(output_data['partials']):
-        sheet.write(row+1, 13, partial, styles[genes[row]])
+        sheet.write(row+1, 12, partial, styles[genes[row]])
