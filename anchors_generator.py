@@ -62,6 +62,13 @@ def main(args):
                               output_data['functionalitys'],
                               output_data['partials'])
             write_files.write_excel_sheet_v(sheet, output_data)
+            write_files.generate_error_file(output_filename,
+                    output_data['error_results'],
+                    output_data['sequence'],
+                    output_data['error_indexs'])
+            write_files.generate_anchor_file(output_filename,
+                     output_data['results'],
+                     output_data['indexs'])
         elif v_or_j_or_d == "D" :
             output_data = parse_genes.parse_d_genes(infile)
             write_files.write_excel_sheet_d(sheet, output_data)
@@ -75,11 +82,11 @@ def main(args):
                                   output_data['functionalitys'],
                                   output_data['partials'])
             write_files.write_excel_sheet_j(sheet, output_data)
-        write_files.generate_error_file(output_filename,
+            write_files.generate_error_file(output_filename,
                     output_data['error_results'],
                     output_data['sequence'],
                     output_data['error_indexs'])
-        write_files.generate_anchor_file(output_filename,
+            write_files.generate_anchor_file(output_filename,
                      output_data['results'],
                      output_data['indexs'])
 

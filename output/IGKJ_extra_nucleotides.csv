@@ -1,0 +1,10 @@
+gene_name;extra_nucleotides;amino_acids;accession;functionality;partial
+IGKJ1*01;g;WTF;J00242;F; 
+IGKJ2*01;tg;YTF;J00242;F; 
+IGKJ2*02;g;CTF;Z70260;(F); 
+IGKJ2*03;tg;YSF;U95246;(F); 
+IGKJ2*04;tg;CSF;Z46620;(F); 
+IGKJ3*01;a;FTF;J00242;F; 
+IGKJ4*01;g;LTF;J00242;F; 
+IGKJ4*02;g;LTF;AF103571;(F); 
+IGKJ5*01;g;ITF;J00242;F; 

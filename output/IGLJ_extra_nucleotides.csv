@@ -1,0 +1,11 @@
+gene_name;extra_nucleotides;amino_acids;accession;functionality;partial
+IGLJ1*01;t;YVF;X04457;F; 
+IGLJ2*01;t;VVF;M15641;F; 
+IGLJ3*01;t;VVF;M15642;F; 
+IGLJ3*02;t;WVF;D87023;F; 
+IGLJ4*01;t;FVF;X51755;ORF; 
+IGLJ5*01;c;WVF;X51755;ORF; 
+IGLJ5*02;c;WVF;D87017;ORF; 
+IGLJ6*01;t;NVF;M18338;F; 
+IGLJ7*01;t;AVF;X51755;F; 
+IGLJ7*02;t;AVF;D87017;F; 

@@ -168,17 +168,17 @@ def parse_d_genes(infile):
             floor = math.floor(len(seq_record_temp)/3)
             index = len(seq_record_temp) - (floor*3)
 
+            seq_record_temp = seq_record_temp[:-(index)]
+            # translating from dna to amino acid and find first (F/W)X(S/T)
+            translated_seq = seq_record_temp.translate()
+            three_amino_acids.append (translated_seq)
+
+            #save 3' extra nucleotides to three_prime_extra
             if index != 0:
-                seq_record_temp = seq_record_temp[:-(index)]
-                #save 3' extra nucleotides to three_prime_extra
                 three_prime_extra = seq_record.seq[-(index):]
                 three_prime_extras.append (three_prime_extra)
             else:
                 three_prime_extras.append ("")
-
-                # translating from dna to amino acid and find first (F/W)X(S/T)
-                translated_seq = seq_record_temp.translate()
-                three_amino_acids.append (translated_seq)
 
         #get the gene name
         if "|" not in seq_record.description:
@@ -212,9 +212,9 @@ def parse_d_genes(infile):
         data['sequence_frame_two'].append(three_amino_acids[1])
         data['three_prime_extra_frame_two'].append(three_prime_extras[1])
 
-        data['five_prime_extra_frame_two'].append(five_prime_extras[2])
-        data['sequence_frame_two'].append(three_amino_acids[2])
-        data['three_prime_extra_frame_two'].append(three_prime_extras[2])
+        data['five_prime_extra_frame_three'].append(five_prime_extras[2])
+        data['sequence_frame_three'].append(three_amino_acids[2])
+        data['three_prime_extra_frame_three'].append(three_prime_extras[2])
 
     return data
 
