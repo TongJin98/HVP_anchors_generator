@@ -168,17 +168,18 @@ def parse_d_genes(infile):
             floor = math.floor(len(seq_record_temp)/3)
             index = len(seq_record_temp) - (floor*3)
 
-            seq_record_temp = seq_record_temp[:-(index)]
-            # translating from dna to amino acid and find first (F/W)X(S/T)
-            translated_seq = seq_record_temp.translate()
-            three_amino_acids.append (translated_seq)
-
             #save 3' extra nucleotides to three_prime_extra
             if index != 0:
                 three_prime_extra = seq_record.seq[-(index):]
                 three_prime_extras.append (three_prime_extra)
+                seq_record_temp = seq_record_temp[:-(index)]
+                # translating from dna to amino acid
+                translated_seq = seq_record_temp.translate()
+                three_amino_acids.append (translated_seq)
             else:
                 three_prime_extras.append ("")
+                translated_seq = seq_record_temp.translate()
+                three_amino_acids.append (translated_seq)
 
         #get the gene name
         if "|" not in seq_record.description:
